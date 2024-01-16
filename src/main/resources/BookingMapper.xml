@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.BookingMapper">
+    <select id="selectBooking" resultType="org.example.Booking">
+        SELECT * FROM bookings WHERE location_number = #{id}
+    </select>
+    <insert id="loadXML">
+        <![CDATA[
+            LOAD XML LOCAL INFILE '${xmlFile}' INTO TABLE bookings ROWS IDENTIFIED BY '<booking>';
+        ]]>
+    </insert>
+    <select id="deleteData" statementType="CALLABLE">
+        { CALL deleteData() }
+    </select>
+    <delete id="deleteBooking">
+        DELETE FROM bookings WHERE location_number = #{id}
+    </delete>
+    <insert id="insertBooking">
+        INSERT INTO bookings (client, agency, price, room, hotel, check_in, room_nights)
+        VALUES (#{client}, #{agency}, #{price}, #{room}, #{hotel}, #{check_in}, #{room_nights})
+    </insert>
+    <update id="updateBooking">
+        UPDATE bookings SET client = #{client}, agency = #{agency}, price = #{price}, room = #{room}, hotel = #{hotel}, check_in = #{check_in}, room_nights = #{room_nights}
+        WHERE location_number = #{location_number}
+    </update>
+</mapper>
