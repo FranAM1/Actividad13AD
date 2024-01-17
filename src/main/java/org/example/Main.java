@@ -41,7 +41,11 @@ public class Main {
                         List<Booking> allBookings = sesion.getSession().selectList("org.example.BookingMapper.selectAllBookings");
 
                         if (!allBookings.isEmpty()) {
-                            DOM.bookingsToXML(allBookings, "bookings2.xml");
+                            System.out.println("Introduce la ruta del fichero CSV");
+                            String rutaCSV = main.sc.nextLine();
+
+                            CSV.bookingsToCSV(allBookings, rutaCSV);
+
                             System.out.println("Base de datos descargada correctamente en 'bookings.xml'");
                         } else {
                             System.out.println("La base de datos está vacía. No se generará el archivo XML.");
@@ -208,11 +212,12 @@ public class Main {
 
     public static void options(){
         System.out.println("1 - Cargar base de datos desde un fichero XML");
-        System.out.println("2 - Descargar la base de datos en un fichero XML");
+        System.out.println("2 - Descargar la base de datos en un fichero CSV");
         System.out.println("3 - Eliminar todos los datos de la base de datos");
         System.out.println("4 - Añadir reserva");
         System.out.println("5 - Eliminar una reserva");
         System.out.println("6 - Modificar una reserva");
         System.out.println("7 - Salir");
+        System.out.println("Elige una opción:");
     }
 }
