@@ -1,7 +1,6 @@
 package org.example;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -38,7 +37,18 @@ public class Main {
                     sesion.executeCommit();
                     break;
                 case "2":
+                    try {
+                        List<Booking> allBookings = sesion.getSession().selectList("org.example.BookingMapper.selectAllBookings");
 
+                        if (!allBookings.isEmpty()) {
+                            DOM.bookingsToXML(allBookings, "bookings2.xml");
+                            System.out.println("Base de datos descargada correctamente en 'bookings.xml'");
+                        } else {
+                            System.out.println("La base de datos está vacía. No se generará el archivo XML.");
+                        }
+                    } catch (Exception e) {
+                        System.out.println("Error al descargar la base de datos en XML: " + e);
+                    }
                     break;
                 case "3":
                     try{

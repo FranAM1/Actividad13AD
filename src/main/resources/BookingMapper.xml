@@ -6,6 +6,9 @@
     <select id="selectBooking" resultType="org.example.Booking">
         SELECT * FROM bookings WHERE location_number = #{id}
     </select>
+    <select id="selectAllBookings" resultType="org.example.Booking">
+        SELECT * FROM bookings;
+    </select>
     <insert id="loadXML">
         <![CDATA[
             LOAD XML LOCAL INFILE '${xmlFile}' INTO TABLE bookings ROWS IDENTIFIED BY '<booking>';
